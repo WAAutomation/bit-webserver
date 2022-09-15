@@ -11,4 +11,4 @@
   2.[Tomcat处理HTTP请求流程解析](https://juejin.cn/post/7067917428319223845)  
   3.[使用Python开发你的第一个服务器程序](https://cloud.tencent.com/developer/article/1356570)  
 ## 接口设计
-各个模块间的接口说明
+各个模块功能流程以及其间的接口说明
