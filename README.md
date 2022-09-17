@@ -12,6 +12,9 @@
   3.[使用Python开发你的第一个服务器程序](https://cloud.tencent.com/developer/article/1356570)  
 ## 接口设计
 各个模块功能流程以及其间的接口说明
+
 连接模块：
+
 工具：pycharm社区版2022
+
 描述：用Django模板创建的文件，html页面在templates文件夹下，app1文件夹下的views文件里写了调用html页面的函数，url.py里有调用的路径
