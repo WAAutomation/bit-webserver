@@ -20,3 +20,7 @@
 工具：pycharm社区版2022
 
 描述：用Django模板创建的文件，html页面在templates文件夹下，app1文件夹下的views文件里写了调用html页面的函数，url.py里有调用的路径
+
+页面设计模块：
+工具：VScode
+描述：error.html是出错页面，style.css是对应的美化设计；query.html是查询界面，qs.css是对应的美化设计
