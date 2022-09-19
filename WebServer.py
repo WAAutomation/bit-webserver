@@ -24,7 +24,7 @@ class WebServer:
 
     def close(self):
         """关闭服务器连接"""
-        self.server_scoket.close()
+        self.server_socket.close()
 
     @staticmethod
     def response_test(new_socket):
