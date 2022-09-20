@@ -26,3 +26,9 @@
 工具：VScode
 
 描述：error.html是出错页面，style.css是对应的美化设计；query.html是查询界面，qs.css是对应的美化设计
+
+日志模块：
+
+工具：pycharm社区版2022
+
+描述：LogM类的属性包括ip地址，URL，HTTP状态码，点击后获得的超链接，用户终端浏览器；可通过实例化类传入要写入日志的一条请求的信息
