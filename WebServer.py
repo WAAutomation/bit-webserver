@@ -29,8 +29,7 @@ class WebServer:
     def insert_new_thread(self, new_socket, client_addr):
         self.thread_pool.submit(self.run_thread, new_socket, client_addr)
 
-    @staticmethod
-    def run_thread(new_socket, client_addr):
+    def run_thread(self, new_socket, client_addr):
         # 接收HTTP请求
         request = new_socket.recv(1024)
         # print(request)
@@ -40,9 +39,7 @@ class WebServer:
             threading.Lock().acquire()
 
             # 返回HTTP
-            response = "HTTP/1.1 200 OK\r\n"
-            response += "\r\n"
-            response += "<h1>Welcome<h1>"
+            response = self.response_test1()
             new_socket.send(response.encode("utf-8"))
 
             # 关闭同步锁
@@ -55,22 +52,15 @@ class WebServer:
         self.server_socket.close()
 
     @staticmethod
-    def response_test1(new_socket):
-        """向客户端返回数据（测试用）"""
-        # 1.接收浏览器发送过来的请求，即HTTP请求
-        # GET / HTTP/1.1
-        request = new_socket.recv(1024)
-        # print(request)
-
-        # 2.返回HTTP格式的数据，给浏览器
+    def response_test1():
+        """返回数据（测试用）"""
         # 准备发送的header
         response = "HTTP/1.1 200 OK\r\n"
         response += "\r\n"  # header与body之间必须隔一行
         # 准备发送的body
         response += "<h1>Welcome<h1>"
-        new_socket.send(response.encode("utf-8"))
 
-        new_socket.close()
+        return response
 
     @staticmethod
     def response_test2(new_socket):
