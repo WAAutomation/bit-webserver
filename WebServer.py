@@ -1,4 +1,6 @@
 import socket
+import threading
+from concurrent.futures import ThreadPoolExecutor
 
 
 class WebServer:
@@ -7,6 +9,7 @@ class WebServer:
         self.port = port
         self.max_connect = max_connect
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.thread_pool = ThreadPoolExecutor(self.max_connect)
 
     def open(self):
         """开启服务器连接"""
@@ -20,7 +23,32 @@ class WebServer:
         # 等待新客户端的连接
         while True:
             new_socket, client_addr = self.server_socket.accept()
-            self.response_test2(new_socket)
+            self.insert_new_thread(new_socket, client_addr)
+            # self.response_test2(new_socket)
+
+    def insert_new_thread(self, new_socket, client_addr):
+        self.thread_pool.submit(self.run_thread, new_socket, client_addr)
+
+    @staticmethod
+    def run_thread(new_socket, client_addr):
+        # 接收HTTP请求
+        request = new_socket.recv(1024)
+        # print(request)
+
+        if request:
+            # 打开同步锁
+            threading.Lock().acquire()
+
+            # 返回HTTP
+            response = "HTTP/1.1 200 OK\r\n"
+            response += "\r\n"
+            response += "<h1>Welcome<h1>"
+            new_socket.send(response.encode("utf-8"))
+
+            # 关闭同步锁
+            threading.Lock().release()
+
+        new_socket.close()
 
     def close(self):
         """关闭服务器连接"""
@@ -46,6 +74,7 @@ class WebServer:
 
     @staticmethod
     def response_test2(new_socket):
+        """向客户端返回数据（测试用）"""
         request = new_socket.recv(1024)
         print(request)
         file_name1 = "/error.html"
@@ -72,6 +101,7 @@ class WebServer:
             #  发送HTML
             new_socket.send(html_content)
         new_socket.close()
+
 
 if __name__ == '__main__':
     web_server = WebServer("127.0.0.1", 8888, 128)
