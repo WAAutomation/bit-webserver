@@ -53,7 +53,7 @@ class WebServer:
 
     @staticmethod
     def response_test1():
-        """返回数据（测试用）"""
+        """返回简单静态网页（测试用）"""
         # 准备发送的header
         response = "HTTP/1.1 200 OK\r\n"
         response += "\r\n"  # header与body之间必须隔一行
@@ -63,34 +63,31 @@ class WebServer:
         return response
 
     @staticmethod
-    def response_test2(new_socket):
-        """向客户端返回数据（测试用）"""
-        request = new_socket.recv(1024)
-        print(request)
+    def response_test2():
+        """返回复杂静态网页（测试用）"""
         file_name1 = "/error.html"
         file_name2 = "/style.css"
+
         try:
             #  准备发送的body，打开HTML文件
             f1 = open("page" + file_name1, 'rb')
             f2 = open("page" + file_name2, 'rb')
-        except:
+        except IOError as error:
             response = "HTTP/1.1 404 NOT FOUND\r\n"
             response += '\r\n'
             response += "----file not found----"
-            new_socket.send(response.encode("utf-8"))
         else:
             html_content = f1.read()
-            # html_content += f2.read()
+            html_content += f2.read()
             f1.close()
             f2.close()
             #  准备发送的header
             response = "HTTP/1.1 200 OK\r\n"
             response += "\r\n"  # header与body之间必须隔一行
-            #  发送header
-            new_socket.send(response.encode("utf-8"))
-            #  发送HTML
-            new_socket.send(html_content)
-        new_socket.close()
+            # response += html_content
+            print(response)
+
+        return response
 
 
 if __name__ == '__main__':
