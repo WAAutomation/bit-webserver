@@ -10,9 +10,9 @@ class HttpAnalysis:
 
         self.Cookie = None
         self.request_data = dict()  # 请求数据
-        self.response_line = ''
+        self.response_line = ""
         self.response_head = dict()  # 请求头
-        self.response_body = ''  # 最终请求的html代码
+        self.response_body = ""  # 最终请求的html代码
 
     def request_analyse(self, request):
         """请求报文解析入口"""
@@ -22,15 +22,15 @@ class HttpAnalysis:
         request_line, request_rest = request.split('\r\n', 1)
         request_header, request_body = request_rest.split('\r\n\r\n', 1)
 
-        print("line------")
-        print(request_line)
+        # print("line------")
+        # print(request_line)
         # print("header----")
         # print(request_header)
         # print("body------")
         # print(request_body)
 
         self.line_analyse(request_line)
-        # self.header_analyse(request_header)
+        self.header_analyse(request_header)
 
     def line_analyse(self, request_line):
         """请求行解析"""
@@ -46,8 +46,4 @@ class HttpAnalysis:
         head_options = request_head.split('\r\n')
         for option in head_options:
             key, val = option.split(': ', 1)
-            self.head[key] = val
-        if 'Cookie' in self.head:
-            self.Cookie = self.head['Cookie']  # 提取出来Cookie
-
-
+            self.header[key] = val
