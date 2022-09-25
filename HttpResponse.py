@@ -44,7 +44,7 @@ class HttpResponse:
         if not path.exists():
             # 404
             self.line_generate(404)
-            url = "/error.html"
+            url = "/404.html"
             html_url = self.html_path + url
         else:
             # 200
