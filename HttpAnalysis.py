@@ -11,7 +11,7 @@ class HttpAnalysis:
     def request_analyse(self, request):
         """请求报文解析入口"""
         request = request.decode('utf-8')
-        print(request)
+        # print(request)
 
         request_line, request_rest = request.split('\r\n', 1)
         request_header, request_body = request_rest.split('\r\n\r\n', 1)
