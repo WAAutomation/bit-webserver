@@ -31,22 +31,18 @@ class WebServer:
         self.thread_pool.submit(self.run_thread, new_socket, client_addr)
 
     def run_thread(self, new_socket, client_addr):
-        # 接收HTTP请求
-        request = new_socket.recv(1024)
-        # print(request)
+        # 打开同步锁
+        threading.Lock().acquire()
 
-        if request:
-            # 打开同步锁
-            threading.Lock().acquire()
+        # 创建并运行thread
+        new_thread = Thread(new_socket)
+        new_thread.run()
 
-            # 返回HTTP
-            response = self.response_test1()
-            new_socket.send(response.encode("utf-8"))
+        # 关闭同步锁
+        threading.Lock().release()
 
-            # 关闭同步锁
-            threading.Lock().release()
-
-        new_socket.close()
+        # bug-线程中断时间不确定
+        new_thread.interrupt()
 
     def close(self):
         """关闭服务器连接"""
