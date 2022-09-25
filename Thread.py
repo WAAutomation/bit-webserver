@@ -1,21 +1,22 @@
-import socket
-
-
 class Thread:
     def __init__(self, socket):
-        self.socket = socket
+        self.thread_socket = socket
 
     def run(self):
         """"进程运行"""
-        request = self.socket.recv(1024)
+        request = self.thread_socket.recv(1024)
         # print(request)
         response = self.response_test1()
 
-        self.socket.send(response.encode("utf-8"))
+        self.thread_socket.send(response.encode("utf-8"))
 
     def interrupt(self):
         """"进程中断"""
-        self.socket.close()
+        self.thread_socket.close()
+
+    def extract_http_header(self, requset):
+        """提取http的header"""
+        pass
 
     @staticmethod
     def response_test1():
