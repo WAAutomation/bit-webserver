@@ -8,12 +8,6 @@ class HttpAnalysis:
         self.header = dict()        # 请求头
         self.body = dict()          # 请求体
 
-        self.Cookie = None
-        self.request_data = dict()  # 请求数据
-        self.response_line = ""
-        self.response_head = dict()  # 请求头
-        self.response_body = ""  # 最终请求的html代码
-
     def request_analyse(self, request):
         """请求报文解析入口"""
         request = request.decode('utf-8')
