@@ -1,6 +1,10 @@
+from HttpHeaderAnalysis import HttpHeaderAnalysis
+
+
 class Thread:
     def __init__(self, socket):
         self.thread_socket = socket
+        self.http_header_analysis = None
 
     def run(self):
         """"进程运行"""
@@ -14,9 +18,6 @@ class Thread:
         """"进程中断"""
         self.thread_socket.close()
 
-    def extract_http_header(self, requset):
-        """提取http的header"""
-        pass
 
     @staticmethod
     def response_test1():
