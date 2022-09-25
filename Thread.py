@@ -1,15 +1,18 @@
-from HttpHeaderAnalysis import HttpHeaderAnalysis
+from HttpAnalysis import HttpAnalysis
 
 
 class Thread:
     def __init__(self, socket):
         self.thread_socket = socket
-        self.http_header_analysis = None
+        self.http_analysis = HttpAnalysis()
 
     def run(self):
         """"进程运行"""
         request = self.thread_socket.recv(1024)
         # print(request)
+
+        self.http_analysis.request_analyse(request)
+
         response = self.response_test1()
 
         self.thread_socket.send(response.encode("utf-8"))
