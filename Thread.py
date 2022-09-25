@@ -1,10 +1,12 @@
 from HttpAnalysis import HttpAnalysis
+from HttpResponse import HttpResponse
 
 
 class Thread:
     def __init__(self, socket):
         self.thread_socket = socket
         self.http_analysis = HttpAnalysis()
+        self.http_response = HttpResponse()
 
     def run(self):
         """"进程运行"""
@@ -14,13 +16,14 @@ class Thread:
         self.http_analysis.request_analyse(request)
 
         if self.http_analysis.method == "GET":
-            pass
+            html_url = self.http_response.html_path + self.http_analysis.url
+            response = self.http_response.response_generate(html_url)
         elif self.http_analysis.method == "HEAD":
             pass
         else:
             pass
 
-        response = self.response_test1()
+        # response = self.response_test1()
 
         self.thread_socket.send(response.encode("utf-8"))
 
