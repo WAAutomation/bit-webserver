@@ -17,8 +17,13 @@ class HttpResponse:
         elif code == 404:
             self.response_body = Code.NOT_FOUND
 
-    def header_generate(self):
-        self.response_header['Content-Type'] = 'text/html'
+    def header_generate(self, url):
+        context_type = url.split('.', 1)[1]
+
+        if context_type == "html":
+            self.response_header['Content-Type'] = 'text/html'
+        elif context_type == "css":
+            self.response_header['Content-Type'] = 'text/css'
 
     def get_header(self):
         header = ""
@@ -29,7 +34,8 @@ class HttpResponse:
 
         return header
 
-    def response_generate(self, html_url):
+    def response_generate(self, url):
+        html_url = self.html_path + url
         try:
             # 尝试打开html文件，准备body
             f = open(html_url, 'r', encoding="utf-8")
@@ -37,7 +43,7 @@ class HttpResponse:
             self.line_generate(404)
         else:
             self.line_generate(200)
-            self.header_generate()
+            self.header_generate(url)
 
             self.response_body = f.read()
             f.close()

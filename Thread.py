@@ -11,13 +11,12 @@ class Thread:
     def run(self):
         """"进程运行"""
         request = self.thread_socket.recv(1024)
-        # print(request)
+        print(request)
 
         self.http_analysis.request_analyse(request)
 
         if self.http_analysis.method == "GET":
-            html_url = self.http_response.html_path + self.http_analysis.url
-            response = self.http_response.response_generate(html_url)
+            response = self.http_response.response_generate(self.http_analysis.url)
         elif self.http_analysis.method == "HEAD":
             pass
         else:
