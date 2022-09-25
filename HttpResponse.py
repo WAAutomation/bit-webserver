@@ -11,6 +11,14 @@ class HttpResponse:
         self.response_body = ""
 
     def line_generate(self, code):
+        """
+
+        Args:
+            code: status code
+
+        Returns:
+
+        """
         if code == 200:
             self.response_line = Code.OK
         elif code == 400:
@@ -21,6 +29,14 @@ class HttpResponse:
             self.response_line = Code.NOT_FOUND
 
     def header_generate(self, url):
+        """
+
+        Args:
+            url: relative url of file
+
+        Returns:
+
+        """
         context_type = url.split('.', 1)[1]
 
         if context_type == "html":
@@ -29,6 +45,11 @@ class HttpResponse:
             self.response_header['Content-Type'] = 'text/css'
 
     def get_header(self):
+        """
+
+        Returns: header in string type
+
+        """
         header = ""
 
         header += 'Content-Type: '
@@ -38,6 +59,14 @@ class HttpResponse:
         return header
 
     def response_generate(self, url):
+        """
+
+        Args:
+            url: relative url of file
+
+        Returns: http response
+
+        """
         html_url = self.html_path + url
         path = pathlib.Path(html_url)
 
