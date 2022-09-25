@@ -1,6 +1,7 @@
 import socket
 import threading
 from concurrent.futures import ThreadPoolExecutor
+from Thread import Thread
 
 
 class WebServer:
