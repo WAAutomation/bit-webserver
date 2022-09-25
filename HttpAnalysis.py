@@ -9,7 +9,15 @@ class HttpAnalysis:
         self.body = dict()          # 请求体
 
     def request_analyse(self, request):
-        """请求报文解析入口"""
+        """
+        请求报文解析入口
+        
+        Args:
+            request: http request message
+
+        Returns:
+
+        """
         request = request.decode('utf-8')
         # print(request)
 
@@ -27,7 +35,15 @@ class HttpAnalysis:
         self.header_analyse(request_header)
 
     def line_analyse(self, request_line):
-        """请求行解析"""
+        """
+        请求行解析
+
+        Args:
+            request_line: line of http request message
+
+        Returns:
+
+        """
         header_list = request_line.split(' ')
         self.method = header_list[0].upper()
         self.url = header_list[1]
@@ -36,7 +52,15 @@ class HttpAnalysis:
         self.protocol = header_list[2]
 
     def header_analyse(self, request_head):
-        """请求头解析"""
+        """
+        请求头解析
+
+        Args:
+            request_head: head of http request message
+
+        Returns:
+
+        """
         head_options = request_head.split('\r\n')
         for option in head_options:
             key, val = option.split(': ', 1)
