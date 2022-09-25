@@ -1,3 +1,6 @@
+import pathlib
+
+
 class HttpResponse:
     def __init__(self):
         self.html_path = "./page"
@@ -15,7 +18,7 @@ class HttpResponse:
         elif code == 403:
             self.response_line = Code.FORBIDDEN
         elif code == 404:
-            self.response_body = Code.NOT_FOUND
+            self.response_line = Code.NOT_FOUND
 
     def header_generate(self, url):
         context_type = url.split('.', 1)[1]
@@ -36,17 +39,23 @@ class HttpResponse:
 
     def response_generate(self, url):
         html_url = self.html_path + url
-        try:
-            # 尝试打开html文件，准备body
-            f = open(html_url, 'r', encoding="utf-8")
-        except IOError as error:
-            self.line_generate(404)
-        else:
-            self.line_generate(200)
-            self.header_generate(url)
+        path = pathlib.Path(html_url)
 
-            self.response_body = f.read()
-            f.close()
+        if not path.exists():
+            # 404
+            self.line_generate(404)
+            url = "/error.html"
+            html_url = self.html_path + url
+        else:
+            # 200
+            self.line_generate(200)
+
+        self.header_generate(url)
+
+        # 尝试打开html文件，准备body
+        f = open(html_url, 'r', encoding="utf-8")
+        self.response_body = f.read()
+        f.close()
 
         return self.response_line + self.get_header() + self.response_split + self.response_body
 
