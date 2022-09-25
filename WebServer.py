@@ -28,9 +28,11 @@ class WebServer:
             # self.response_test2(new_socket)
 
     def insert_new_thread(self, new_socket, client_addr):
+        """"向线程池加入新线程"""
         self.thread_pool.submit(self.run_thread, new_socket, client_addr)
 
     def run_thread(self, new_socket, client_addr):
+        """线程运行"""
         # 打开同步锁
         threading.Lock().acquire()
 
