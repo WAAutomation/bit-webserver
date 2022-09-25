@@ -13,6 +13,13 @@ class Thread:
 
         self.http_analysis.request_analyse(request)
 
+        if self.http_analysis.method == "GET":
+            pass
+        elif self.http_analysis.method == "HEAD":
+            pass
+        else:
+            pass
+
         response = self.response_test1()
 
         self.thread_socket.send(response.encode("utf-8"))
