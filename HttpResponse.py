@@ -2,6 +2,7 @@ import os
 import time
 import pathlib
 
+
 class HttpResponse:
     def __init__(self):
         self.html_path = "./page"
