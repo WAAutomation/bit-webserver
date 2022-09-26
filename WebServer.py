@@ -56,7 +56,7 @@ class WebServer:
         threading.Lock().acquire()
 
         # 创建并运行thread
-        new_thread = Thread(new_socket)
+        new_thread = Thread(new_socket, client_addr)
         new_thread.run()
 
         # 关闭同步锁
