@@ -1,13 +1,17 @@
 import os
 
+
 class CGIProcess:
-    def __init__(self, head, body):
-        self.body = body.spilt('&')
-        self.url = head
+    def __init__(self, url, body):
+        self.url = url
+        self.body = body.split('\r\n')[0:-1]
+        print(self.body)
 
     def process(self):
-        os.system("python ./cgi-bin/calculator 123 ")
-
-
-os.system("python ./cgi-bin/calculator.py 123 456")
-print(os.popen("python ./cgi-bin/calculator.py 123 456").readlines())
+        command = "python ." + self.url
+        for arg in self.body:
+            arg = arg.split('=')
+            command += f' {arg[-1]}'
+        with os.popen(command) as f:
+            response = f._stream.buffer.read().decode('gbk')
+        return response
