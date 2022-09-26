@@ -1,7 +1,7 @@
 class HttpAnalysis:
     def __init__(self):
         # 请求行
-        self.method = None          # GET/POST
+        self.method = None          # GET/POST/HEAD
         self.url = None             # 请求URL
         self.protocol = None        # HTTP版本及协议
 
