@@ -1,3 +1,6 @@
+import time
+
+
 class HttpAnalysis:
     def __init__(self):
         # 请求行
@@ -7,6 +10,9 @@ class HttpAnalysis:
 
         self.header = dict()        # 请求头
         self.body = dict()          # 请求体
+
+        # 其他
+        self.request_time = None    # 请求时间
 
     def request_analyse(self, request):
         """
@@ -30,6 +36,8 @@ class HttpAnalysis:
         # print(request_header)
         # print("body------")
         # print(request_body)
+
+        self.request_time = time.strftime("%d/%a/%Y %H:%M:%S GMT", time.localtime())
 
         self.line_analyse(request_line)
         self.header_analyse(request_header)
