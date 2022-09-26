@@ -1,11 +1,13 @@
+import os
+import time
 import pathlib
-
 
 class HttpResponse:
     def __init__(self):
         self.html_path = "./page"
 
         self.response_line = None
+        self.response_header_key = ["Server", "Date", "Content-Type", "Connection", "Content-Length"]
         self.response_header = dict()
         self.response_split = '\r\n'
         self.response_body = ""
@@ -37,12 +39,18 @@ class HttpResponse:
         Returns:
 
         """
+
+        self.response_header['Server'] = 'BIT-WS/1.0'
+        self.response_header['Date'] = time.strftime("%a, %b %d %Y %H:%M:%S GMT", time.localtime())
+
         context_type = url.split('.', 1)[1]
 
         if context_type == "html":
             self.response_header['Content-Type'] = 'text/html'
         elif context_type == "css":
             self.response_header['Content-Type'] = 'text/css'
+
+        self.response_header['Connection'] = 'keep-alive'
 
     def get_header(self):
         """
@@ -52,10 +60,17 @@ class HttpResponse:
         """
         header = ""
 
-        header += 'Content-Type: '
-        header += self.response_header['Content-Type']
-        header += self.response_split
+        for item in self.response_header_key:
+            if item in self.response_header.keys():
+                header += item
+                header += ': '
+                header += self.response_header[item]
+                header += self.response_split
+        # header += 'Content-Type: '
+        # header += self.response_header['Content-Type']
+        # header += self.response_split
 
+        # print(header)
         return header
 
     def response_generate(self, url):
@@ -79,6 +94,7 @@ class HttpResponse:
             # 200
             self.line_generate(200)
 
+        self.response_header['Content-Length'] = str(os.path.getsize(html_url))
         self.header_generate(url)
 
         # 尝试打开html文件，准备body
