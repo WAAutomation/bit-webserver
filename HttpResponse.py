@@ -86,6 +86,7 @@ class HttpResponse:
 
         Args:
             url: relative url of file
+            method: request method
 
         Returns: http response
 
