@@ -2,6 +2,7 @@ from HttpAnalysis import HttpAnalysis
 from HttpResponse import HttpResponse
 from MyLog import LogM
 
+
 class Thread:
     def __init__(self, socket):
         self.thread_socket = socket
