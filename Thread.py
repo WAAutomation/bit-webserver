@@ -16,11 +16,11 @@ class Thread:
         self.http_analysis.request_analyse(request)
 
         if self.http_analysis.method == "GET":
-            response = self.http_response.response_generate(self.http_analysis.url)
+            response = self.http_response.response_generate(self.http_analysis.url, 'GET')
         elif self.http_analysis.method == "POST":
             pass
         elif self.http_analysis.method == "HEAD":
-            pass
+            response = self.http_response.response_generate(self.http_analysis.url, 'HEAD')
         else:
             pass
 

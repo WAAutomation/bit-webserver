@@ -74,7 +74,7 @@ class HttpResponse:
         # print(header)
         return header
 
-    def response_generate(self, url):
+    def response_generate(self, url, method):
         """
 
         Args:
@@ -98,10 +98,13 @@ class HttpResponse:
         self.response_header['Content-Length'] = str(os.path.getsize(html_url))
         self.header_generate(url)
 
-        # 尝试打开html文件，准备body
-        f = open(html_url, 'r', encoding="utf-8")
-        self.response_body = f.read()
-        f.close()
+        if method == 'GET':
+            # 尝试打开html文件，准备body
+            f = open(html_url, 'r', encoding="utf-8")
+            self.response_body = f.read()
+            f.close()
+        elif method == 'HEAD':
+            self.response_body = '0'
 
         return self.response_line + self.get_header() + self.response_split + self.response_body
 
