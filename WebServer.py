@@ -40,7 +40,8 @@ class WebServer:
         """
         self.thread_pool.submit(self.run_thread, new_socket, client_addr)
 
-    def run_thread(self, new_socket, client_addr):
+    @staticmethod
+    def run_thread(new_socket, client_addr):
         """
         线程运行
 
