@@ -1,6 +1,6 @@
 from HttpAnalysis import HttpAnalysis
 from HttpResponse import HttpResponse
-
+from MyLog import LogM
 
 class Thread:
     def __init__(self, socket):
@@ -11,7 +11,7 @@ class Thread:
     def run(self):
         """"进程运行"""
         request = self.thread_socket.recv(1024)
-        # print(request)
+        print(request)
 
         self.http_analysis.request_analyse(request)
 
@@ -24,6 +24,8 @@ class Thread:
         else:
             pass
 
+        log = LogM(self.http_analysis.header['Host'], self.http_analysis.header['Host'] + self.http_analysis.url, self.http_response.response_code, self.http_analysis.header['User-Agent'], self.http_analysis.url, self.http_analysis.request_time, self.http_analysis.method)
+        log.generate_log()
         # response = self.response_test1()
 
         self.thread_socket.send(response.encode("utf-8"))
