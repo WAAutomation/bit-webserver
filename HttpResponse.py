@@ -8,9 +8,12 @@ class HttpResponse:
         self.html_path = "./page"
 
         self.response_line = None
-        self.response_header_key = ["Server", "Date", "Content-Type", "Connection", "Content-Length"]
+        self.response_code = None
+
         self.response_header = dict()
+        self.response_header_key = ["Server", "Date", "Content-Type", "Connection", "Content-Length"]
         self.response_split = '\r\n'
+
         self.response_body = ""
 
     def line_generate(self, code):
@@ -24,12 +27,16 @@ class HttpResponse:
         """
         if code == 200:
             self.response_line = Code.OK
+            self.response_code = "200"
         elif code == 400:
             self.response_line = Code.BAD_REQUEST
+            self.response_code = "400"
         elif code == 403:
             self.response_line = Code.FORBIDDEN
+            self.response_code = "403"
         elif code == 404:
             self.response_line = Code.NOT_FOUND
+            self.response_code = "404"
 
     def header_generate(self, url):
         """
