@@ -50,7 +50,7 @@ class HttpResponse:
         elif context_type == "css":
             self.response_header['Content-Type'] = 'text/css'
 
-        self.response_header['Connection'] = 'keep-alive'
+        self.response_header['Connection'] = 'Close'
 
     def get_header(self):
         """
@@ -106,7 +106,7 @@ class HttpResponse:
 
 
 class Code:
-    OK = "HTTP/1.1 200 OK\r\n"
-    BAD_REQUEST = "HTTP/1.1 400 Bad Request\r\n"
-    FORBIDDEN = "HTTP/1.1 403 Forbidden\r\n"
-    NOT_FOUND = "HTTP/1.1 404 Not Found\r\n"
+    OK = "HTTP/1.0 200 OK\r\n"
+    BAD_REQUEST = "HTTP/1.0 400 Bad Request\r\n"
+    FORBIDDEN = "HTTP/1.0 403 Forbidden\r\n"
+    NOT_FOUND = "HTTP/1.0 404 Not Found\r\n"
