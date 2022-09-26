@@ -33,6 +33,20 @@
                 height: 500px;
                 box-shadow: 0 5px 20px rgba(0,0,0,0.1);
             }
+            .container form {
+                position: relative;
+                z-index: 1;
+                background-color: #fff;
+                border-radius: 15px;
+                /*垂直排列*/
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                width: 350px;
+                height: 500px;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            }
             .container .tit {
                 font-size: 26px;
                 margin: 50px auto 40px auto;
@@ -62,20 +76,16 @@
     </head>
     <body>
         <div class = "container"><div class="tit"> 计算器</div>
-        <input type="text" placeholder="数字1">
-        <select>
-            <option>+</option>
-            <option>-</option>
-            <option>x</option>
-            <option>/</option>
-            <option>%</option>
-        </select>
-        <input type="text" placeholder="数字2">
+        <form method="post" enctype="text/plain" name="myForm" action="/cgi-bin/calculator.py">
+            <input type="text" name="oped1" placeholder="数字1">
+            <input type="text" name="opt" placeholder="运算符">
+            <input type="text" name="oped2" placeholder="数字2">
+            <button type="submit">计算</button>
+        </form>
         <form name="output">
             <p>结果</p>
             <textarea type="text" name="text_output" id="text3"></textarea>
         </form>
-        <button>计算</button>
       </div>
     </body>
 </html>
