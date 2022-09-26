@@ -1,6 +1,7 @@
 from HttpAnalysis import HttpAnalysis
 from HttpResponse import HttpResponse
 from MyLog import LogM
+from CGI import CGIProcess
 
 
 class Thread:
@@ -20,7 +21,9 @@ class Thread:
         if self.http_analysis.method == "GET":
             response = self.http_response.response_generate(self.http_analysis.url, 'GET')
         elif self.http_analysis.method == "POST":
-            pass
+            cgi_process = CGIProcess(self.http_analysis.url, self.http_analysis.body)
+            http_body = cgi_process.process()
+            response = self.http_response.response_generate(self.http_analysis.url, 'POST', http_body)
         elif self.http_analysis.method == "HEAD":
             response = self.http_response.response_generate(self.http_analysis.url, 'HEAD')
         else:
