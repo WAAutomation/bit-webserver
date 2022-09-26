@@ -4,10 +4,11 @@ from MyLog import LogM
 
 
 class Thread:
-    def __init__(self, socket):
+    def __init__(self, socket, client_addr):
         self.thread_socket = socket
         self.http_analysis = HttpAnalysis()
         self.http_response = HttpResponse()
+        self.client_addr = client_addr
 
     def run(self):
         """"进程运行"""
@@ -25,7 +26,7 @@ class Thread:
         else:
             pass
 
-        log = LogM(self.http_analysis.header['Host'], self.http_analysis.header['Host'] + self.http_analysis.url, self.http_response.response_code, self.http_analysis.header['User-Agent'], self.http_analysis.url, self.http_analysis.request_time, self.http_analysis.method)
+        log = LogM(self.client_addr[0], self.http_analysis.header['Host'] + self.http_analysis.url, self.http_response.response_code, self.http_analysis.header['User-Agent'], self.http_analysis.url, self.http_analysis.request_time, self.http_analysis.method)
         log.generate_log()
         # response = self.response_test1()
 
