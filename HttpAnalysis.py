@@ -9,7 +9,7 @@ class HttpAnalysis:
         self.protocol = None        # HTTP版本及协议
 
         self.header = dict()        # 请求头
-        self.body = dict()          # 请求体
+        self.body = None            # 请求体
 
         # 其他
         self.request_time = None    # 请求时间
@@ -41,6 +41,7 @@ class HttpAnalysis:
 
         self.line_analyse(request_line)
         self.header_analyse(request_header)
+        self.body = request_body
 
     def line_analyse(self, request_line):
         """
