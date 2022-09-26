@@ -81,12 +81,13 @@ class HttpResponse:
         # print(header)
         return header
 
-    def response_generate(self, url, method):
+    def response_generate(self, url, method, body=''):
         """
 
         Args:
             url: relative url of file
             method: request method
+            body: http response body
 
         Returns: http response
 
@@ -112,7 +113,9 @@ class HttpResponse:
             self.response_body = f.read()
             f.close()
         elif method == 'HEAD':
-            self.response_body = '0'
+            self.response_body = ''
+        elif method == 'POST':
+            self.response_body = body
 
         return self.response_line + self.get_header() + self.response_split + self.response_body
 
