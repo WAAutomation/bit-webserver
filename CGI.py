@@ -13,5 +13,5 @@ class CGIProcess:
             arg = arg.split('=')
             command += f' {arg[-1]}'
         with os.popen(command) as f:
-            response = f._stream.buffer.read().decode('gbk')
+            response = f.buffer.read().decode('utf-8')
         return response
