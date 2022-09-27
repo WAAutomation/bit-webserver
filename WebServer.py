@@ -22,9 +22,12 @@ class WebServer:
         # 监听
         self.server_socket.listen(self.max_connect)
 
+        print("Web Server running on " + self.ip + ":" + str(self.port) + ", max connect = " + str(self.max_connect))
+
         # 等待新客户端的连接
         while True:
             new_socket, client_addr = self.server_socket.accept()
+            print("Accept Client: " + str(client_addr[0]))
             self.insert_new_thread(new_socket, client_addr)
             # self.response_test2(new_socket)
 
