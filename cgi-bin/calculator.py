@@ -18,7 +18,7 @@ if __name__ == "__main__":
     oprd1 = sys.argv[1].rstrip()
     oprt = sys.argv[2].rstrip()
     oprd2 = sys.argv[3].rstrip()
-    answer = cal(oprd1, oprt, oprd2)
+    answer = cal(float(oprd1), oprt, float(oprd2))
     # answer = cal("123", "+", "456")
     # print(answer)
     body = f'''<!DOCTYPE html>
