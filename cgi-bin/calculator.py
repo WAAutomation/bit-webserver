@@ -17,7 +17,8 @@ def cal(oprd1, oprt, oprd2):
 
 if __name__ == "__main__":
     answer = cal(sys.argv[1], sys.argv[2], sys.argv[3])
-    print(answer)
+    # answer = cal("123", "+", "456")
+    # print(answer)
     body = f'''<!DOCTYPE html>
 <html>
     <head>
