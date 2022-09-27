@@ -14,7 +14,7 @@ class Thread:
     def run(self):
         """"进程运行"""
         request = self.thread_socket.recv(1024)
-        print(request)
+        # print(request)
 
         self.http_analysis.request_analyse(request)
 
@@ -22,8 +22,8 @@ class Thread:
             response = self.http_response.response_generate(self.http_analysis.url, 'GET')
         elif self.http_analysis.method == "POST":
             cgi_process = CGIProcess(self.http_analysis.url, self.http_analysis.body)
-            http_body = cgi_process.process()
-            response = self.http_response.response_generate(self.http_analysis.url, 'POST', http_body)
+            http_body, http_body_size = cgi_process.process()
+            response = self.http_response.response_generate(self.http_analysis.url, 'POST', http_body, http_body_size)
         elif self.http_analysis.method == "HEAD":
             response = self.http_response.response_generate(self.http_analysis.url, 'HEAD')
         else:
@@ -32,7 +32,7 @@ class Thread:
         log = LogM(self.client_addr[0], self.http_analysis.header['Host'] + self.http_analysis.url, self.http_response.response_code, self.http_analysis.header['User-Agent'], self.http_analysis.url, self.http_analysis.request_time, self.http_analysis.method)
         log.generate_log()
         # response = self.response_test1()
-
+        # print(response)
         self.thread_socket.send(response.encode("utf-8"))
 
     def interrupt(self):
