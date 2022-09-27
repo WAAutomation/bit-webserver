@@ -1,4 +1,5 @@
 import os
+import sys
 import time
 import pathlib
 
@@ -81,7 +82,7 @@ class HttpResponse:
         # print(header)
         return header
 
-    def response_generate(self, url, method, body=''):
+    def response_generate(self, url, method, body='', body_size=0):
         """
 
         Args:
@@ -92,9 +93,14 @@ class HttpResponse:
         Returns: http response
 
         """
-        html_url = self.html_path + url
+        if method == 'GET' or method == 'HEAD':
+            html_url = self.html_path + url
+        elif method == 'POST':
+            html_url = '.' + url
+
         path = pathlib.Path(html_url)
 
+        # 响应行
         if not path.exists():
             # 404
             self.line_generate(404)
@@ -104,18 +110,22 @@ class HttpResponse:
             # 200
             self.line_generate(200)
 
-        self.response_header['Content-Length'] = str(os.path.getsize(html_url))
-        self.header_generate(url)
-
+        # 响应体
         if method == 'GET':
             # 尝试打开html文件，准备body
+            self.response_header['Content-Length'] = str(os.path.getsize(html_url))
             f = open(html_url, 'r', encoding="utf-8")
             self.response_body = f.read()
             f.close()
         elif method == 'HEAD':
+            self.response_header['Content-Length'] = '0'
             self.response_body = ''
         elif method == 'POST':
+            self.response_header['Content-Length'] = str(body_size)
             self.response_body = body
+
+        # 响应头
+        self.header_generate(url)
 
         return self.response_line + self.get_header() + self.response_split + self.response_body
 
