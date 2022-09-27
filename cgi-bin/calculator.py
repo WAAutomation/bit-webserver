@@ -2,9 +2,6 @@ import sys
 
 
 def cal(oprd1, oprt, oprd2):
-    oprd1 = float(oprd1.rstrip())
-    oprd2 = float(oprd2.rstrip())
-    oprt = oprt.rstrip()
     if oprt == '+':
         return oprd1 + oprd2
     elif oprt == '-':
@@ -16,7 +13,10 @@ def cal(oprd1, oprt, oprd2):
 
 
 if __name__ == "__main__":
-    answer = cal(sys.argv[1], sys.argv[2], sys.argv[3])
+    oprd1 = sys.argv[1].rstrip()
+    oprt = sys.argv[2].rstrip()
+    oprd2 = sys.argv[3].rstrip()
+    answer = cal(oprd1, oprt, oprd2)
     # answer = cal("123", "+", "456")
     # print(answer)
     body = f'''<!DOCTYPE html>
@@ -98,14 +98,14 @@ if __name__ == "__main__":
     <body>
         <div class = "container"><div class="tit"> 计算器</div>
         <form method="post" enctype="text/plain" name="myForm" action="/cgi-bin/calculator.py">
-            <input type="text" name="oped1" placeholder="数字1">
-            <input type="text" name="opt" placeholder="运算符">
-            <input type="text" name="oped2" placeholder="数字2">
+            <input type="text" name="oped1" placeholder="数字1" value="{oprd1}">
+            <input type="text" name="opt" placeholder="运算符" value="{oprt}">
+            <input type="text" name="oped2" placeholder="数字2" value="{oprd2}">
             <button type="submit">计算</button>
         </form>
         <form name="output">
             <p>结果</p>
-            <textarea type="text" name="text_output" id="text3">{answer}</textarea>
+            <h1>{answer}<h1>
         </form>
       </div>
     </body>
