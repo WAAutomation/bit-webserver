@@ -19,7 +19,7 @@
                 align-items: center;
                 background: linear-gradient(-200deg,#e3b9d9,#aac2ee);
             }
-            .container {
+            .container form{
                 position: relative;
                 z-index: 1;
                 background-color: #fff;
@@ -62,9 +62,13 @@
     </head>
     <body>
       <div class = "container">
-        <div class="tit"> 查询学生信息</div>
-        <input type="text" placeholder="学号">
-        <button>查询</button>
+          <form method="post" enctype="text/plain" name="myForm" action="\cgi-bin\query.py">
+              <div class="tit"> 查询学生信息</div>
+              <input type="text" name="student_id" placeholder="学号" value="">
+              <button>查询</button>
+              <p>结果</p>
+              <h1></h1>
+          </form>
       </div>  
     </body>
 </html>
