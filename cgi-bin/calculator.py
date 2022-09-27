@@ -2,6 +2,8 @@ import sys
 
 
 def cal(oprd1, oprt, oprd2):
+    oprd1 = float(oprd1)
+    oprd2 = float(oprd2)
     if oprt == '+':
         return oprd1 + oprd2
     elif oprt == '-':
