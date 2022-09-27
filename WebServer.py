@@ -2,6 +2,7 @@ import socket
 import threading
 from concurrent.futures import ThreadPoolExecutor
 from Thread import Thread
+from test import test
 
 
 class WebServer:
@@ -53,14 +54,16 @@ class WebServer:
 
         """
         # 打开同步锁
-        threading.Lock().acquire()
+        lock = threading.Lock()
+        # threading.Lock().acquire()
 
         # 创建并运行thread
-        new_thread = Thread(new_socket, client_addr)
-        new_thread.run()
+        with lock:
+            new_thread = Thread(new_socket, client_addr)
+            new_thread.run()
 
         # 关闭同步锁
-        threading.Lock().release()
+        # threading.Lock().release()
 
         # bug-线程中断时间不确定
         new_thread.interrupt()
@@ -71,6 +74,9 @@ class WebServer:
 
 
 if __name__ == '__main__':
-    web_server = WebServer("127.0.0.1", 8888, 128)
+    ip = "127.0.0.1"
+    port = 8888
+    web_server = WebServer(ip, port, 128)
+    test(ip, port, 500, 200)
     web_server.open()
     web_server.close()
