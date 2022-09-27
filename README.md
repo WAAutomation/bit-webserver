@@ -12,7 +12,7 @@
   3.[使用Python开发你的第一个服务器程序](https://cloud.tencent.com/developer/article/1356570)  
   4.[python实现http服务器](https://blog.csdn.net/qq_32426313/article/details/104180402)  
   5.[基于python的简单HTTP服务器实现](https://blog.csdn.net/hu694028833/article/details/80862695)
-  6.[压力测试]（https://cloud.tencent.com/developer/article/1684842  
+  6.[压力测试](https://cloud.tencent.com/developer/article/1684842)  
 ## 接口设计
 各个模块功能流程以及其间的接口说明
 
