@@ -79,7 +79,7 @@ class WebServer:
 if __name__ == '__main__':
     ip = "127.0.0.1"
     port = 8888
-    web_server = WebServer(ip, port, 128)
+    web_server = WebServer(ip, port, 20)
     test(ip, port, 500, 200)
     web_server.open()
     web_server.close()
