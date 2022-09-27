@@ -1,4 +1,5 @@
 import os
+import sys
 
 
 class CGIProcess:
@@ -13,6 +14,7 @@ class CGIProcess:
             arg = arg.split('=')
             command += f' {arg[-1]}'
         with os.popen(command) as f:
-            response_body = f.buffer.read().decode('utf-8')
-            response_body_size = '3072'
+            response_body = f.buffer.read()
+            response_body_size = len(response_body)
+            response_body = response_body.decode('utf-8')
         return response_body, response_body_size
