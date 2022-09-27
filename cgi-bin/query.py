@@ -5,6 +5,13 @@ from DataBase import DataBase
 def query(student_id):
     db = DataBase()
     # db.create_table()
+    # db.add_stu("1120191526", "李帆")
+    # db.add_stu("1120191261", "曹月华")
+    # db.add_stu("1120191266", "宋静澜")
+    # db.add_stu("1120191460", "郭庆举")
+    # db.add_stu("1120191269", "贺雪莹")
+    # db.add_stu("1120191277", "叶嘉威")
+    # db.add_stu("1120191407", "曹哲瑀")
     value = db.select_stu(student_id)
 
     if value:
