@@ -18,3 +18,8 @@ class CGIProcess:
             response_body_size = len(response_body)
             response_body = response_body.decode('utf-8')
         return response_body, response_body_size
+
+
+if __name__ == '__main__':
+    cgi_process = CGIProcess('/cgi-bin/query.py', 'student_id=100\r\n')
+    cgi_process.process()
