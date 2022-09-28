@@ -10,6 +10,7 @@ class WebServer:
         self.ip = ip
         self.port = port
         self.max_connect = max_connect
+        socket.setdefaulttimeout(5)
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.thread_pool = ThreadPoolExecutor(self.max_connect)
 
