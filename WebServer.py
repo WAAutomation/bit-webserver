@@ -10,7 +10,7 @@ class WebServer:
         self.ip = ip
         self.port = port
         self.max_connect = max_connect
-        socket.setdefaulttimeout(5)
+        # socket.setdefaulttimeout(5)
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.thread_pool = ThreadPoolExecutor(self.max_connect)
 
@@ -29,6 +29,7 @@ class WebServer:
         while True:
             new_socket, client_addr = self.server_socket.accept()
             print("Accept Client: " + str(client_addr[0]))
+            new_socket.settimeout(5)
             self.insert_new_thread(new_socket, client_addr)
             # self.response_test2(new_socket)
 
