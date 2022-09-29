@@ -21,8 +21,11 @@ class Thread:
         if self.http_analysis.method == "GET":
             response = self.http_response.response_generate(self.http_analysis.url, 'GET')
         elif self.http_analysis.method == "POST":
+            # 环境变量创建
             cgi_process = CGIProcess(self.http_analysis.url, self.http_analysis.body)
+            # cgi返回响应体
             http_body, http_body_size = cgi_process.process()
+            # 创建http响应报文
             response = self.http_response.response_generate(self.http_analysis.url, 'POST', http_body, http_body_size)
         elif self.http_analysis.method == "HEAD":
             response = self.http_response.response_generate(self.http_analysis.url, 'HEAD')
