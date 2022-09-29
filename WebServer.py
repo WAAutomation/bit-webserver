@@ -1,6 +1,8 @@
 import socket
 import threading
 from concurrent.futures import ThreadPoolExecutor
+from Thread import Thread
+from test import test
 
 
 class WebServer:
@@ -8,6 +10,7 @@ class WebServer:
         self.ip = ip
         self.port = port
         self.max_connect = max_connect
+        # socket.setdefaulttimeout(5)
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.thread_pool = ThreadPoolExecutor(self.max_connect)
 
@@ -20,77 +23,65 @@ class WebServer:
         # 监听
         self.server_socket.listen(self.max_connect)
 
+        print("Web Server running on " + self.ip + ":" + str(self.port) + ", max connect = " + str(self.max_connect))
+
         # 等待新客户端的连接
         while True:
             new_socket, client_addr = self.server_socket.accept()
+            print("Accept Client: " + str(client_addr[0]))
+            new_socket.settimeout(5)
             self.insert_new_thread(new_socket, client_addr)
             # self.response_test2(new_socket)
 
     def insert_new_thread(self, new_socket, client_addr):
+        """
+        向线程池加入新线程
+
+        Args:
+            new_socket: new socket
+            client_addr: client address
+
+        Returns:
+
+        """
         self.thread_pool.submit(self.run_thread, new_socket, client_addr)
 
-    def run_thread(self, new_socket, client_addr):
-        # 接收HTTP请求
-        request = new_socket.recv(1024)
-        # print(request)
+    @staticmethod
+    def run_thread(new_socket, client_addr):
+        """
+        线程运行
 
-        if request:
-            # 打开同步锁
-            threading.Lock().acquire()
+        Args:
+            new_socket: new socket
+            client_addr: client address
 
-            # 返回HTTP
-            response = self.response_test1()
-            new_socket.send(response.encode("utf-8"))
+        Returns:
 
-            # 关闭同步锁
-            threading.Lock().release()
+        """
+        # 打开同步锁
+        lock = threading.Lock()
+        # threading.Lock().acquire()
 
-        new_socket.close()
+        # 创建并运行thread
+        with lock:
+            new_thread = Thread(new_socket, client_addr)
+            new_thread.run()
+
+        # 关闭同步锁
+        # threading.Lock().release()
+
+        # bug-线程中断时间不确定
+        new_thread.interrupt()
 
     def close(self):
         """关闭服务器连接"""
         self.server_socket.close()
 
-    @staticmethod
-    def response_test1():
-        """返回简单静态网页（测试用）"""
-        # 准备发送的header
-        response = "HTTP/1.1 200 OK\r\n"
-        response += "\r\n"  # header与body之间必须隔一行
-        # 准备发送的body
-        response += "<h1>Welcome<h1>"
-
-        return response
-
-    @staticmethod
-    def response_test2():
-        """返回复杂静态网页（测试用）"""
-        file_name1 = "/error.html"
-        file_name2 = "/style.css"
-
-        try:
-            #  准备发送的body，打开HTML文件
-            f1 = open("page" + file_name1, 'rb')
-            f2 = open("page" + file_name2, 'rb')
-        except IOError as error:
-            response = "HTTP/1.1 404 NOT FOUND\r\n"
-            response += '\r\n'
-            response += "----file not found----"
-        else:
-            html_content = f1.read()
-            html_content += f2.read()
-            f1.close()
-            f2.close()
-            #  准备发送的header
-            response = "HTTP/1.1 200 OK\r\n"
-            response += "\r\n"  # header与body之间必须隔一行
-            # response += html_content
-            print(response)
-
-        return response
-
 
 if __name__ == '__main__':
-    web_server = WebServer("127.0.0.1", 8888, 128)
+    ip = "127.0.0.1"
+    port = 8888
+    web_server = WebServer(ip, port, 20)
+    test(ip, port, 500, 200)
     web_server.open()
     web_server.close()

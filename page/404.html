@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>
+            404 Error Page
+        </title> 
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+                outline: none;
+                box-sizing: border-box;
+                font-family: 'Poppins', sans-serif;
+            }
+            body{
+               /* background: -webkit-repeating-linear-gradient(-45deg,#71b7e6,#69a6ce,#81dcea,#78c7eb,#69a6ce,#73d3e4);*/
+                height: 100vh;
+                background-size: 400%;
+            }
+            .error-page{
+                position: absolute;
+                top:0%;
+                left: 10%;
+                right: 10%;
+                bottom: 20%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: #fff;
+                box-shadow: 0px 5px 10px rgba(0,0,0,0.1);
+            }
+            .error-page .content{
+                max-width: 600px;
+                text-align: center;
+            }
+            .content h1{
+                font-size: 18vw;
+                line-height: 1em;
+                position: relative;
+            }
+            .content h1::after{
+                position: absolute;
+                content: attr(data-text);
+                top: 0;
+                left: 0;
+                right: 0;
+                background: -webkit-repeating-linear-gradient(-45deg,#8bcaf4,#8dc2e6,#8de3f0,#78c7eb,#76add1,#7ec7d4);
+                background-size: 400%;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                text-shadow: 1px 1px 2px rgba(255,255,255,0);
+
+            }
+            .content h4{
+                margin-bottom: 20px;
+                text-transform: uppercase;
+                color: #000;
+                max-width: 600px;
+                font-size: 2em;
+            }
+            .content p{
+                font-size: 1.2em;
+                color: #0d0d0d;
+            }
+        </style>
+    </head>
+    <body>
+      <div class = "error-page">
+        <div class="content">
+            <h1 data-text="404">  404 </h1>
+            <h4 data-text="Page not found!">Page not found!</h4>
+            <p>Sorry,the page you're looking for doesn't exist.</p>
+        </div>
+      </div>  
+    </body>
+</html>
